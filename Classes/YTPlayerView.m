@@ -410,6 +410,8 @@ NSString static *const kYTPlayerSyndicationRegexPattern = @"^https://tpc.googles
   if (self.initialLoadingView) {
     [self.initialLoadingView removeFromSuperview];
   }
+    
+    
 }
 
 /**
@@ -595,6 +597,10 @@ NSString static *const kYTPlayerSyndicationRegexPattern = @"^https://tpc.googles
   } else if ([action isEqualToString:kYTPlayerCallbackOnYouTubeIframeAPIFailedToLoad]) {
     if (self.initialLoadingView) {
       [self.initialLoadingView removeFromSuperview];
+    }
+    if ([self.delegate respondsToSelector:@selector(playerView:receivedError:)]) {
+      YTPlayerError error = kYTPlayerErrorUnknown;
+      [self.delegate playerView:self receivedError:error];
     }
   }
 }
